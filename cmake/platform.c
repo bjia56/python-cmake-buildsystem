@@ -108,9 +108,6 @@ char *PLATFORM_TRIPLET =
 # else
 #       "unknown platform triplet"
 # endif
-# else
-#       "unknown platform triplet"
-# endif
 #elif defined(__FreeBSD_kernel__)
 # if defined(__LP64__)
         "x86_64-kfreebsd-gnu"
