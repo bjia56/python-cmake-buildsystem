@@ -830,10 +830,20 @@ endif()
 
 if(USE_LIBEDIT AND ENABLE_READLINE)
     if(PY_VERSION VERSION_GREATER_EQUAL "3.10")
-        set_target_properties(extension_readline PROPERTIES
-            COMPILE_DEFINITIONS "WITH_EDITLINE")
+        if(BUILTIN_READLINE)
+            set_target_properties(extension_readline_definitions PROPERTIES
+                COMPILE_DEFINITIONS "WITH_EDITLINE")
+        else()
+            set_target_properties(extension_readline PROPERTIES
+                COMPILE_DEFINITIONS "WITH_EDITLINE")
+        endif()
     else()
-        set_target_properties(extension_readline PROPERTIES
-            COMPILE_DEFINITIONS "USE_LIBEDIT")
+        if(BUILTIN_READLINE)
+            set_target_properties(extension_readline_definitions PROPERTIES
+                COMPILE_DEFINITIONS "USE_LIBEDIT")
+        else()
+            set_target_properties(extension_readline PROPERTIES
+                COMPILE_DEFINITIONS "USE_LIBEDIT")
+        endif()
     endif()
 endif()
