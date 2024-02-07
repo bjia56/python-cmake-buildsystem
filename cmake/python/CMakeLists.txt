@@ -16,7 +16,7 @@ add_definitions(-DPy_BUILD_CORE)
 # Link against the shared libpython if it was built, otherwise use the static
 # version.
 if(LINUX)
-    set_target_properties(game PROPERTIES LINK_FLAGS "-Wl,-rpath,$ORIGIN/../lib")
+    set_target_properties(python PROPERTIES LINK_FLAGS "-Wl,-rpath,$ORIGIN/../lib")
 endif()
 if(BUILD_LIBPYTHON_SHARED)
     target_link_libraries(python libpython-shared)
