@@ -42,6 +42,7 @@ jobs:
           -DCMAKE_INSTALL_PREFIX:PATH=${{ github.workspace }}/python-install \
           -DCMAKE_OSX_DEPLOYMENT_TARGET=10.13 \
           -DCMAKE_C_STANDARD=99 \
+          -DPATCH_COMMAND=patch \
           -DPYTHON_VERSION=${{ matrix.python-version }} \
           ..
         make -j4
