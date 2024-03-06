@@ -51,3 +51,7 @@ jobs:
     - name: Test
       run: |
         ./python-install/bin/python -m test || true
+    
+    - name: Check sysconfig
+      run: |
+        ./python-install/bin/python -m sysconfig
