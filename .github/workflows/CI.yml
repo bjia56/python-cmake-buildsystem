@@ -29,6 +29,10 @@ jobs:
       with:
         cmake-version: 3.13.5
 
+    - name: Install tools
+      run: |
+        brew install gpatch
+
     - name: Build
       run: |
         mkdir -p python-build && mkdir -p python-install
