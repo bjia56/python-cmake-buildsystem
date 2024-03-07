@@ -10,9 +10,9 @@ index daf9f00006..638aaa18b4 100644
 +    with open(destfile, 'r', encoding='utf8') as f:
 +        varsfile = f.read()
 +    if '# patched for portable python' not in varsfile:
-+        varsfile = varsfile.replace(" '"+vars['prefix'], " f'{{root}}")
-+        varsfile = varsfile.replace(" '-I"+vars['prefix'], " f'-I{{root}}")
-+        varsfile = varsfile.replace(" \"'"+vars['prefix'], " f\"'{{root}}")
++        varsfile = varsfile.replace(" '"+vars['prefix'], " f'{root}")
++        varsfile = varsfile.replace(" '-I"+vars['prefix'], " f'-I{root}")
++        varsfile = varsfile.replace(" \"'"+vars['prefix'], " f\"'{root}")
 +        with open(destfile, 'w', encoding='utf8') as f:
 +            f.write('# patched for portable python\n')
 +            f.write('import sys\nimport os\n')
