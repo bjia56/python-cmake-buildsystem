@@ -1,23 +1,24 @@
 diff --git a/Lib/sysconfig.py b/Lib/sysconfig.py
-index e3f79bfde5..1efd14d7d3 100644
+index daf9f00006..638aaa18b4 100644
 --- a/Lib/sysconfig.py
 +++ b/Lib/sysconfig.py
-@@ -389,6 +389,18 @@ def _generate_posix_vars():
-     if _PYTHON_BUILD:
-         vars['BLDSHARED'] = vars['LDSHARED']
+@@ -466,6 +466,19 @@ def _generate_posix_vars():
+         f.write('build_time_vars = ')
+         pprint.pprint(vars, stream=f)
  
-+    # This section patches the build vars to replace the static install
-+    # prefix with one dynamically determined at runtime.
-+    root = os.path.realpath(sys.executable)
-+    root = os.path.dirname(root)
-+    root = os.path.dirname(root)
++    # fixup sysconfig to use dynamic paths for portable python
++    with open(destfile, 'r', encoding='utf8') as f:
++        varsfile = f.read()
++    if '# patched for portable python' not in varsfile:
++        varsfile.replace(" '"+vars['prefix'], " f'{{root}}")
++        varsfile.replace(" '-I"+vars['prefix'], " f'-I{{root}}")
++        varsfile.replace(" \"'"+vars['prefix'], " f\"'{{root}}")
++        with open(destfile, 'w', encoding='utf8') as f:
++            f.write('# patched for portable python\n')
++            f.write('import sys\nimport os\n')
++            f.write('root = os.path.dirname(os.path.dirname(sys.executable))\n')
++            f.write(varsfile)
 +
-+    existing_prefix = vars['prefix']
-+    for k in vars.keys():
-+        v = vars[k]
-+        if isinstance(v, str) and existing_prefix in v:
-+            vars[k] = v.replace(existing_prefix, root)
-+
-     # There's a chicken-and-egg situation on OS X with regards to the
-     # _sysconfigdata module after the changes introduced by #15298:
-     # get_config_vars() is called by get_platform() as part of the
+     # Create file used for sys.path fixup -- see Modules/getpath.c
+     with open('pybuilddir.txt', 'w', encoding='utf8') as f:
+         f.write(pybuilddir)
