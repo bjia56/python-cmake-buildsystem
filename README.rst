@@ -1,6 +1,8 @@
 CPython CMake Buildsystem
 =========================
 
+Archived in favor of https://github.com/bjia56/portable-python-cmake-buildsystem
+
 Overview
 --------
 
